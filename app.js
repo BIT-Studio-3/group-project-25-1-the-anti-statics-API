@@ -1,18 +1,17 @@
 // Import the Express module
 import express from "express";
 
+// Import the index routes module
+import indexRoutes from "./routes/index.js";
+
 // Create an Express application
 const app = express();
 
 // Use the PORT environment variable or 3000
 const PORT = process.env.PORT || 3000;
 
-// Create a GET route
-app.get("/", (req, res) => {
-  return res.status(200).json({
-    message: "Hello, World!",
-  });
-});
+// Use the routes module
+app.use("/", indexRoutes);
 
 // Start the server on port 3000
 app.listen(PORT, () => {
