@@ -1,6 +1,7 @@
 import prisma from "../prisma/client.js";
 
 class AlertRepository {
+    //Basic Queries
   async create(data) {
     return await prisma.alert.create({ data });
   }
@@ -27,6 +28,7 @@ class AlertRepository {
       where: { id },
     });
   }
+  //More Queries to go below
 }
 
 export default new AlertRepository();
