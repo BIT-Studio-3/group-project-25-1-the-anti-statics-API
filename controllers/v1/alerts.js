@@ -3,7 +3,7 @@
  * @author Samuel Batchelor
  */
 
-import alertRepository from "../../repositories/alert.js";
+import alertRepository from "../../repositories/alerts.js";
 
 const createAlert = async (req, res) => {
   try {
