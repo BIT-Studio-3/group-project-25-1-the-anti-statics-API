@@ -11,7 +11,7 @@ import {
   getAlert,
   updateAlert,
   deleteAlert,
-} from "../../controllers/v1/alert.js";
+} from "../../controllers/v1/alerts.js";
 
 const router = express.Router();
 
