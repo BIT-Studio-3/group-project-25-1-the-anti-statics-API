@@ -13,3 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Alert {
+  id            String   @id @default(uuid()) // Unique identifier
+  title         String   
+  emergencyType String   
+  alertLevel    Int      
+  region        String   
+  description   String   
+  status        String   @default("active") // Alert status (active, resolved, expired)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
