@@ -20,5 +20,12 @@ app.listen(PORT, () => {
   );
 });
 
+// Import the alerts routes module
+import alertRoutes from "./routes/v1/alerts.js";
+
+// Use the alerts route
+app.use("/api/v1/alerts", alertRoutes);
+
+
 // Export the Express application. May be used by other modules. For example, API testing
 export default app;
