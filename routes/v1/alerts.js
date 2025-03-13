@@ -3,7 +3,7 @@
  * @author Samuel Batchelor
  */
 
-import express from "express";
+import createRouter from "./base.js";
 
 import {
   createAlert,
@@ -13,16 +13,16 @@ import {
   deleteAlert,
 } from "../../controllers/v1/alerts.js";
 
-const router = express.Router();
+// Create alert controller
+const alertController = {
+  get: getAlerts,
+  getById: getAlert,
+  create: createAlert,
+  update: updateAlert,
+  delete: deleteAlert,
+};
 
-router.post("/", createAlert);
+// Create alert route
+const alertRouter = createRouter(alertController);
 
-router.get("/", getAlerts);
-
-router.get("/:id", getAlert);
-
-router.put("/:id", updateAlert);
-
-router.delete("/:id", deleteAlert);
-
-export default router;
+export default alertRouter;
