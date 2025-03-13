@@ -3,7 +3,9 @@
  * @author Samuel Batchelor
  */
 
-import alertRepository from "../../repositories/alerts.js";
+import Repository from "../../repositories/generic.js";
+
+const alertRepository = new Repository("Alert");
 
 const createAlert = async (req, res) => {
   try {
