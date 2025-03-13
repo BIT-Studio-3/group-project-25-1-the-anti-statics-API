@@ -4,6 +4,9 @@ import express from "express";
 // Import the index routes module
 import indexRoutes from "./routes/index.js";
 
+//Import the cors module
+import cors from 'cors';
+
 // Create an Express application
 const app = express();
 
@@ -22,6 +25,10 @@ app.listen(PORT, () => {
 
 // Import the alerts routes module
 import alertRoutes from "./routes/v1/alerts.js";
+
+//Use the CORS module
+//This will allow request from any origin
+app.use(cors());
 
 // Use the alerts route
 app.use("/api/v1/alerts", alertRoutes);
