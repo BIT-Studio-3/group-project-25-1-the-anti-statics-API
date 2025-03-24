@@ -3,6 +3,8 @@ import express from "express";
 
 // Import the index routes module
 import indexRoutes from "./routes/index.js";
+// Import the alerts routes module
+import alertRoutes from "./routes/v1/alerts.js";
 
 //Import the cors module
 import cors from 'cors';
@@ -23,8 +25,6 @@ app.listen(PORT, () => {
   );
 });
 
-// Import the alerts routes module
-import alertRoutes from "./routes/v1/alerts.js";
 
 //Use the CORS module
 //This will allow request from any origin
