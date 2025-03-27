@@ -26,6 +26,9 @@ app.listen(PORT, () => {
 // Import the alerts routes module
 import alertRoutes from "./routes/v1/alerts.js";
 
+// Import the hazards routes module
+import hazardRoutes from "./routes/v1/hazards.js";
+
 //Use the CORS module
 //This will allow request from any origin
 app.use(cors());
@@ -39,6 +42,8 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads. F
 // Use the alerts route
 app.use("/api/v1/alerts", alertRoutes);
 
+// Use the hazards route
+app.use("/api/v1/hazards", hazardRoutes);
 
 // Export the Express application. May be used by other modules. For example, API testing
 export default app;
