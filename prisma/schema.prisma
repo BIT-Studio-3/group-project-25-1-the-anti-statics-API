@@ -23,3 +23,13 @@ model Alert {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model Damage {
+  reporterName  String
+  damageType    String
+  damageLevel   Int
+  location      String
+  countAffected Int
+  cause         String
+  createdAt     DateTime @default(now())
+}
