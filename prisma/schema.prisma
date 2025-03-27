@@ -23,3 +23,14 @@ model Alert {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+model Damage {
+  id            String   @id @default(uuid()) // Unique identifier
+  reporterName  String
+  damageType    String
+  damageLevel   Int
+  location      String
+  countAffected Int
+  cause         String
+  createdAt     DateTime @default(now())
+}
