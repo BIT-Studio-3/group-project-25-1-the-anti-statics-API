@@ -15,25 +15,22 @@ datasource db {
 
 model Alert {
   id            String   @id @default(uuid()) // Unique identifier
-  title         String   
-  emergencyType String   
-  alertLevel    Int      
-  region        String   
-  description   String   
+  title         String
+  emergencyType String
+  alertLevel    Int
+  region        String
+  description   String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
 
 model Hazard {
-  id            String   @id @default(uuid())  
-  name          String   
-  type          String   
-  severity      Int      
-  affectedAreas String   
-  description   String
-  createdAt     DateTime @default(now())  
-  updatedAt     DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  level       Int
+  city        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
-
-
-
