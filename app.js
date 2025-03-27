@@ -45,5 +45,7 @@ app.use("/api/v1/alerts", alertRoutes);
 // Use the hazards route
 app.use("/api/v1/hazards", hazardRoutes);
 
+//Test commit 28/3/2025
+
 // Export the Express application. May be used by other modules. For example, API testing
 export default app;
