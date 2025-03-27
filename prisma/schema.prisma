@@ -25,6 +25,7 @@ model Alert {
 }
 
 model Damage {
+  id            String   @id @default(uuid()) // Unique identifier
   reporterName  String
   damageType    String
   damageLevel   Int
