@@ -21,3 +21,37 @@ const createResourceAvailability = async (req, res) => {
       });
     }
   };
+
+  const getResourcesAvailability = async (req, res) => {
+    try {
+      const resources = await resourceRepository.findAll();
+      if (!resources || resources.length === 0) {
+        return res.status(404).json({ message: "No resources found" });
+      }
+      return res.status(200).json({
+        data: resources,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
+    }
+  };
+
+  const getResourceAvailability = async (req, res) => {
+    try {
+      const resource = await resourceRepository.findById(req.params.id);
+      if (!resource) {
+        return res.status(404).json({
+          message: `No resource with the id: ${req.params.id} found`,
+        });
+      }
+      return res.status(200).json({
+        data: resource,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
+    }
+  };
