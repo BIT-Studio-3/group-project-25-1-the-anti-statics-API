@@ -34,3 +34,13 @@ model Hazard {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model ResourcesAvailability {
+  id          String   @id @default(uuid())
+  name        String   // Organization Name
+  contactInfo String   // Contact Information
+  assistance  String   // How can you help?
+  conditions  String?  // Conditions (optional)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

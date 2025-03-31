@@ -29,6 +29,9 @@ import alertRoutes from "./routes/v1/alerts.js";
 // Import the hazards routes module
 import hazardRoutes from "./routes/v1/hazards.js";
 
+// Import the ResourcesAvailability routes module
+import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
+
 //Use the CORS module
 //This will allow request from any origin
 app.use(cors());
@@ -44,6 +47,9 @@ app.use("/api/v1/alerts", alertRoutes);
 
 // Use the hazards route
 app.use("/api/v1/hazards", hazardRoutes);
+
+// Use the hazards route
+app.use("/api/v1/ResourcesAvailability", resourceRoutes);
 
 //Test commit 28/3/2025
 
