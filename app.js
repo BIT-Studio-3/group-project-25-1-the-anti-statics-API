@@ -16,6 +16,66 @@ const PORT = process.env.PORT || 3000;
 // Use the routes module
 app.use("/", indexRoutes);
 
+app.use((req, res) => {
+  res.status(404).send(`
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>404 - Not Found</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+          }
+          .container {
+            text-align: center;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+          }
+          h1 {
+            font-size: 100px;
+            margin-bottom: 10px;
+            color: #e74c3c;
+          }
+          p {
+            font-size: 18px;
+            margin-bottom: 20px;
+          }
+          a {
+            font-size: 16px;
+            color: #3498db;
+            text-decoration: none;
+            border: 1px solid #3498db;
+            padding: 10px 15px;
+            border-radius: 5px;
+          }
+          a:hover {
+            background-color: #3498db;
+            color: #fff;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>404</h1>
+          <p>Oops! The page you requested does not exist.</p>
+          <a href="/">Go back to the homepage</a>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
 // Start the server on port 3000
 app.listen(PORT, () => {
   console.log(
