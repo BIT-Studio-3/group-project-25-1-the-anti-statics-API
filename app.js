@@ -25,6 +25,8 @@ app.listen(PORT, () => {
 
 // Import the alerts routes module
 import alertRoutes from "./routes/v1/alerts.js";
+import damageRoutes from "./routes/v1/damages.js";
+
 
 // Import the hazards routes module
 import hazardRoutes from "./routes/v1/hazards.js";
@@ -44,6 +46,8 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads. F
 
 // Use the alerts route
 app.use("/api/v1/alerts", alertRoutes);
+app.use("/api/v1/damages", damageRoutes);
+
 
 // Use the hazards route
 app.use("/api/v1/hazards", hazardRoutes);
