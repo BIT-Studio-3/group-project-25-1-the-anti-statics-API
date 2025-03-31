@@ -94,3 +94,11 @@ const createResourceAvailability = async (req, res) => {
       });
     }
   };
+
+  export {
+    createResourceAvailability,
+    getResourcesAvailability,
+    getResourceAvailability,
+    updateResourceAvailability,
+    deleteResourceAvailability,
+  };
