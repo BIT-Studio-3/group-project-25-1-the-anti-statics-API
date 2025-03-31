@@ -55,3 +55,42 @@ const createResourceAvailability = async (req, res) => {
       });
     }
   };
+
+  const updateResourceAvailability = async (req, res) => {
+    try {
+      let resource = await resourceRepository.findById(req.params.id);
+      if (!resource) {
+        return res.status(404).json({
+          message: `No resource with the id: ${req.params.id} found`,
+        });
+      }
+      resource = await resourceRepository.update(req.params.id, req.body);
+      return res.status(200).json({
+        message: `Resource with the id: ${req.params.id} successfully updated`,
+        data: resource,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
+    }
+  };
+
+  const deleteResourceAvailability = async (req, res) => {
+    try {
+      const resource = await resourceRepository.findById(req.params.id);
+      if (!resource) {
+        return res.status(404).json({
+          message: `No resource with the id: ${req.params.id} found`,
+        });
+      }
+      await resourceRepository.delete(req.params.id);
+      return res.json({
+        message: `Resource with the id: ${req.params.id} successfully deleted`,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        message: err.message,
+      });
+    }
+  };
