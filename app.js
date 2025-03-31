@@ -1,5 +1,7 @@
 // Import the Express module
 import express from "express";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 // Import the index routes module
 import indexRoutes from "./routes/index.js";
@@ -56,6 +58,30 @@ app.use(express.urlencoded({ extended: false })); // To parse the incoming reque
 
 // This should be declared under - app.use(urlencoded({ extended: false }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads. For example, REST API requests
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Disaster Management System API",
+      version: "1.0.0",
+      description: "The back-end API for the Anti-Statics Disaster Management System",
+      contact: {
+        name: "Samuel Batchelor",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routes/v1/*.js", "./swagger/*.js"]
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Use the alerts route
 app.use("/api/v1/alerts", alertRoutes);
