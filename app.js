@@ -41,6 +41,12 @@ app.use((req, res, next) => {
   next();
 });
 
+import auth from "./middleware/auth.js";
+
+import authRoutes from "./routes/v1/auth.js";
+
+app.use("/api/v1/auth", authRoutes);
+
 //Use the CORS module
 //This will allow request from any origin
 app.use(cors());
