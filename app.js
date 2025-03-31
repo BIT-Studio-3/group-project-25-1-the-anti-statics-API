@@ -34,6 +34,13 @@ import hazardRoutes from "./routes/v1/hazards.js";
 // Import the ResourcesAvailability routes module
 import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
 
+import logger from "./middleware/logger.js";
+
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl}`);
+  next();
+});
+
 //Use the CORS module
 //This will allow request from any origin
 app.use(cors());
