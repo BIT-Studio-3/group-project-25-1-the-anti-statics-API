@@ -22,6 +22,9 @@
  *         password:
  *           type: string
  *           example: "password123"
+ *         organization:
+ *           type: string
+ *           example: "MetService"
  *         loginAttempts:
  *           type: integer
  *           example: 3
