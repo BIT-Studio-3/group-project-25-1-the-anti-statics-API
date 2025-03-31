@@ -5,7 +5,7 @@ import prisma from "../../prisma/client.js";
 
 const register = async (req, res) => {
   try {
-    const { firstName, lastName, emailAddress, password } = req.body;
+    const { firstName, lastName, emailAddress, password, organization } = req.body;
 
     let user = await prisma.user.findUnique({ where: { emailAddress } });
 
@@ -25,13 +25,14 @@ const register = async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     user = await prisma.user.create({
-      data: { firstName, lastName, emailAddress, password: hashedPassword },
+      data: { firstName, lastName, emailAddress, password: hashedPassword, organization },
       select: {
         // Select only the fields you want to return
         id: true,
         firstName: true,
         lastName: true,
         emailAddress: true,
+        organization: true,
         createdAt: true,
         updatedAt: true,
       },
