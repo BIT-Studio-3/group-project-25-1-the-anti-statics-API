@@ -30,6 +30,7 @@ model Hazard {
   type        String
   level       Int
   city        String
+  location    String
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
