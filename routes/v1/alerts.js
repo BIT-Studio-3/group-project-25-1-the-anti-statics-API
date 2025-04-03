@@ -13,6 +13,11 @@ import {
   deleteAlert,
 } from "../../controllers/v1/alerts.js";
 
+import {
+  validatePostAlert,
+  validatePutAlert,
+} from "../../middleware/validation/alerts.js";
+
 // Create alert controller
 const alertController = {
   get: getAlerts,
@@ -23,6 +28,10 @@ const alertController = {
 };
 
 // Create alert route
-const alertRouter = createRouter(alertController);
+const alertRouter = createRouter(
+  alertController,
+  validatePostAlert,
+  validatePutAlert
+);
 
 export default alertRouter;

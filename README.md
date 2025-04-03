@@ -1,5 +1,6 @@
 # group-project-25-1-the-anti-statics-API
 
+
 REST API Project for the Anti-statics Disaster Management
 System website
 
@@ -95,29 +96,6 @@ There will be seeding files for each database model. Methods for seeding a datab
 To seed the database with a data for a particular model run e.g: `npm run prisma:seed-alerts`
 
 ## How to run API tests?
-Run `npm run test` to run tests as specified in the testing files within the `tests` directory
-
-The script will reset the database and allow a testing framework called Mocha to run the tests.
-
-When running the tests, you should see the following output:
-
-```
-Constellations
-    ✔ should reject non-string name
-    ✔ should create a valid alert
-    ✔ should create another valid alert
-    ✔ should retrieve all alerts
-    ✔ should retrieve a alert by ID
-    ✔ should filter alerts by name
-    ✔ should sort alerts by name
-    ✔ should reject non-numeric area during update
-    ✔ should update a valid alert
-    ✔ should delete a alert by ID
-
-
-  10 passing
-```
-> Note: the **Alerts** tests aren't the only **tests** that will show. There will **more tests** showing once **testing** is implemented for the other database **models**
 
 ---
 
@@ -128,3 +106,4 @@ Go to the API on Render, click Manual Deploy, click Clear build cache and deploy
 TBD
 
 ---
+
