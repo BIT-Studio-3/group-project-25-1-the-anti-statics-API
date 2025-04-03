@@ -68,7 +68,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "https://group-project-25-1-the-anti-statics-api-4tz3.onrender.com",
       },
     ],
   },
