@@ -105,11 +105,6 @@ app.listen(PORT, () => {
   );
 });
 
-// Import the alerts routes module
-import alertRoutes from "./routes/v1/alerts.js";
-
-// Import the hazards routes module
-import hazardRoutes from "./routes/v1/hazards.js";
 
 //Use the CORS module
 //This will allow request from any origin
