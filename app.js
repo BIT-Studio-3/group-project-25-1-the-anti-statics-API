@@ -164,11 +164,5 @@ app.use((req, res, next) => {
 //Test commit 28/3/2025
 //Test commit 2/4/2025
 
-// Start the server on port 3000
-app.listen(PORT, () => {
-  console.log(
-    `Server is listening on port ${PORT}. Visit http://localhost:${PORT}`
-  );
-});
 // Export the Express application. May be used by other modules. For example, API testing
 export default app;
