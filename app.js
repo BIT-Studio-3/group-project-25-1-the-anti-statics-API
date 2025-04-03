@@ -77,10 +77,14 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
+app.use((req, res, next) => {
+  logger.info(`${req.method} ${req.originalUrl}`);
+  next();
+});
+
 app.use("/", indexRoutes);
 app.use("/api/v1/auth", authRoutes);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Use the alerts route
 app.use("/api/v1/alerts", alertRoutes);
@@ -93,6 +97,8 @@ app.use("/api/v1/hazards", hazardRoutes);
 
 // Use the resources route
 app.use("/api/v1/ResourcesAvailability", resourceRoutes);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use((req, res) => {
   res.status(404).send(`
@@ -154,10 +160,6 @@ app.use((req, res) => {
   `);
 });
 
-app.use((req, res, next) => {
-  logger.info(`${req.method} ${req.originalUrl}`);
-  next();
-});
 //Test commit 28/3/2025
 //Test commit 2/4/2025
 
