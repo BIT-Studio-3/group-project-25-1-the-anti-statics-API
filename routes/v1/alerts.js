@@ -27,11 +27,6 @@ const alertController = {
   delete: deleteAlert,
 };
 
-// Create alert route
-const alertRouter = createRouter(
-  alertController,
-  validatePostAlert,
-  validatePutAlert
-);
+const alertRouter = createRouter(alertController);
 
 export default alertRouter;
