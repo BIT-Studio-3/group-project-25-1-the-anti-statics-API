@@ -121,6 +121,9 @@ Constellations
 
 ---
 
+## There's a problem with the deployed API but it works fine locally!
+Go to the API on Render, click Manual Deploy, click Clear build cache and deploy
+
 ## How to run Prisma Studio
 TBD
 
