@@ -15,11 +15,58 @@ datasource db {
 
 model Alert {
   id            String   @id @default(uuid()) // Unique identifier
-  title         String   
-  emergencyType String   
-  alertLevel    Int      
-  region        String   
-  description   String   
+  title         String
+  emergencyType String
+  alertLevel    Int
+  region        String
+  description   String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model Hazard {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  level       Int
+  city        String
+  location    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ResourcesAvailability {
+  id          String   @id @default(uuid())
+  name        String // Organization Name
+  contactInfo String // Contact Information
+  assistance  String // How can you help?
+  conditions  String? // Conditions (optional)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Damage {
+  id            String   @id @default(uuid()) // Unique identifier
+  reporterName  String
+  damageType    String
+  damageLevel   Int
+  location      String
+  countAffected Int
+  cause         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model User {
+  id               String    @id @default(uuid())
+  firstName        String
+  lastName         String
+  emailAddress     String    @unique
+  password         String
+  organization     String
+  loginAttempts    Int       @default(0)
+  lastLoginAttempt DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
 }
