@@ -35,8 +35,64 @@ const app = express();
 // Use the PORT environment variable or 3000
 const PORT = process.env.PORT || 3000;
 
-// Use the routes module
+// Start the server on port 3000
+app.listen(PORT, () => {
+  console.log(
+    `Server is listening on port ${PORT}. Visit http://localhost:${PORT}`
+  );
+});
+
+
+//Use the CORS module
+//This will allow request from any origin
+app.use(cors());
+
+app.use(isContentTypeApplicationJSON);
+
+// This should be declared above app.use("/", indexRoutes);
+app.use(express.urlencoded({ extended: false })); // To parse the incoming requests with urlencoded payloads. For example, form data
+
+// This should be declared under - app.use(urlencoded({ extended: false }));
+app.use(express.json()); // To parse the incoming requests with JSON payloads. For example, REST API requests
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Disaster Management System API",
+      version: "1.0.0",
+      description: "The back-end API for the Anti-Statics Disaster Management System",
+      contact: {
+        name: "Samuel Batchelor",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./routes/v1/*.js", "./swagger/*.js"]
+};
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+
 app.use("/", indexRoutes);
+app.use("/api/v1/auth", authRoutes);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+// Use the alerts route
+app.use("/api/v1/alerts", alertRoutes);
+
+//Use the damages route
+app.use("/api/v1/damages", damageRoutes);
+
+// Use the hazards route
+app.use("/api/v1/hazards", hazardRoutes);
+
+// Use the resources route
+app.use("/api/v1/ResourcesAvailability", resourceRoutes);
 
 app.use((req, res) => {
   res.status(404).send(`
@@ -97,65 +153,6 @@ app.use((req, res) => {
     </html>
   `);
 });
-
-// Start the server on port 3000
-app.listen(PORT, () => {
-  console.log(
-    `Server is listening on port ${PORT}. Visit http://localhost:${PORT}`
-  );
-});
-
-
-//Use the CORS module
-//This will allow request from any origin
-app.use(cors());
-
-app.use(isContentTypeApplicationJSON);
-
-// This should be declared above app.use("/", indexRoutes);
-app.use(express.urlencoded({ extended: false })); // To parse the incoming requests with urlencoded payloads. For example, form data
-
-// This should be declared under - app.use(urlencoded({ extended: false }));
-app.use(express.json()); // To parse the incoming requests with JSON payloads. For example, REST API requests
-
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Disaster Management System API",
-      version: "1.0.0",
-      description: "The back-end API for the Anti-Statics Disaster Management System",
-      contact: {
-        name: "Samuel Batchelor",
-      },
-    },
-    servers: [
-      {
-        url: "http://localhost:3000",
-      },
-    ],
-  },
-  apis: ["./routes/v1/*.js", "./swagger/*.js"]
-};
-
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-
-app.use("/", indexRoutes);
-app.use("/api/v1/auth", authRoutes);
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// Use the alerts route
-app.use("/api/v1/alerts", alertRoutes);
-
-//Use the damages route
-app.use("/api/v1/damages", damageRoutes);
-
-// Use the hazards route
-app.use("/api/v1/hazards", hazardRoutes);
-
-// Use the resources route
-app.use("/api/v1/ResourcesAvailability", resourceRoutes);
 
 app.use((req, res, next) => {
   logger.info(`${req.method} ${req.originalUrl}`);
