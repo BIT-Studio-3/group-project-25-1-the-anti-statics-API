@@ -13,9 +13,6 @@ import alertRoutes from "./routes/v1/alerts.js";
 //Import the cors module
 import cors from 'cors';
 
-// Import the alerts routes module
-import alertRoutes from "./routes/v1/alerts.js";
-
 // Import the damage routes module
 import damageRoutes from "./routes/v1/damages.js";
 
