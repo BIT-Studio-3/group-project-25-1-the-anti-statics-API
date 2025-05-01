@@ -95,7 +95,7 @@ describe("Alerts", () => {
         chai
             .expect(res.body.message)
             .to.be.equal(
-                `alert with the id: ${alertId} successfully deleted`
+                `Alert with the id: ${alertId} successfully deleted`
             );
     });
 });
