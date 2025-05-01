@@ -76,7 +76,7 @@ describe("Alerts", () => {
                 title: "Building Fire",
                 emergencyType: "Fire",
                 alertLevel: 2,
-                region: 123,
+                region: "Otago",
                 description: "Building caught on fire as there was a hot iron left on the bed",
             });
 
