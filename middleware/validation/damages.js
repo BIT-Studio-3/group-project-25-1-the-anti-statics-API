@@ -1,6 +1,5 @@
 import Joi from "joi";
 
-// Define the Alert schema based on the model structure
 const alertSchema = Joi.object({
     reporterName: Joi.string().min(3).max(255).required().messages({
         "string.base": "Reporter name should be a string",
@@ -26,11 +25,11 @@ const alertSchema = Joi.object({
     }),
 
     location: Joi.string().min(3).max(100).required().messages({
-        "string.base": "location should be a string",
-        "string.empty": "location cannot be empty",
-        "string.min": "location should have a minimum length of {#limit}",
-        "string.max": "location should have a maximum length of {#limit}",
-        "any.required": "location is required"
+        "string.base": "Location should be a string",
+        "string.empty": "Location cannot be empty",
+        "string.min": "Location should have a minimum length of {#limit}",
+        "string.max": "Location should have a maximum length of {#limit}",
+        "any.required": "Location is required"
     }),
 
     countAffected: Joi.number().integer().min(1).max(5).required().messages({
