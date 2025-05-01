@@ -13,6 +13,11 @@ import {
   deleteHazard,
 } from "../../controllers/v1/hazards.js";
 
+import {
+  validatePostHazard,
+  validatePutHazard
+} from "../../middleware/validation/hazards.js"
+
 // Create hazard controller
 const hazardController = {
   get: getHazards,
@@ -23,6 +28,10 @@ const hazardController = {
 };
 
 // Create hazard route
-const hazardRouter = createRouter(hazardController);
+const hazardRouter = createRouter(
+  hazardController,
+  validatePostHazard,
+  validatePutHazard
+);
 
 export default hazardRouter;
