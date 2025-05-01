@@ -66,7 +66,7 @@ const validateSchema = (schema, isRequired = false) => {
 };
 
 // Define POST and PUT validation middleware
-const validatePostAlert = validateSchema(alertSchema, true);
-const validatePutAlert = validateSchema(alertSchema);
+const validatePostDamage = validateSchema(alertSchema, true);
+const validatePutDamage = validateSchema(alertSchema);
 
-export { validatePostAlert, validatePutAlert };
+export { validatePostDamage, validatePutDamage };
