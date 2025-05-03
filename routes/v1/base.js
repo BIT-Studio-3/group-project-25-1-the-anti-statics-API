@@ -5,7 +5,7 @@
 
 import express from "express";
 
-const createRouter = (controller, putValidator, postValidator) => {
+const createRouter = (controller, postValidator, putValidator) => {
   const router = express.Router();
 
   router.get("/", controller.get);
