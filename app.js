@@ -2,6 +2,8 @@
 import express from "express";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 
 // Import the index routes module
 import indexRoutes from "./routes/index.js";
@@ -10,9 +12,6 @@ import alertRoutes from "./routes/v1/alerts.js";
 
 //Import the cors module
 import cors from 'cors';
-
-// Import the alerts routes module
-import alertRoutes from "./routes/v1/alerts.js";
 
 // Import the damage routes module
 import damageRoutes from "./routes/v1/damages.js";
@@ -56,6 +55,19 @@ app.use(express.urlencoded({ extended: false })); // To parse the incoming reque
 
 // This should be declared under - app.use(urlencoded({ extended: false }));
 app.use(express.json()); // To parse the incoming requests with JSON payloads. For example, REST API requests
+
+app.use(
+  helmet({
+    xPoweredBy: true,
+  })
+);
+// This should be declared under - app.use( helmet({ xPoweredBy: true, }));
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  })
+);
 
 const swaggerOptions = {
   definition: {
