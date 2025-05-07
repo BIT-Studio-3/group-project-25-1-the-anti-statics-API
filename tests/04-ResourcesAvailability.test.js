@@ -1,26 +1,26 @@
-// import * as chaiModule from "chai";
-// import chaiHttp from "chai-http";
-// import { describe, it } from "mocha";
+import * as chaiModule from "chai";
+import chaiHttp from "chai-http";
+import { describe, it } from "mocha";
 
-// import app from "../app.js";
+import app from "../app.js";
 
-// const chai = chaiModule.use(chaiHttp);
+const chai = chaiModule.use(chaiHttp);
 
-// let resourcesId;
+let resourcesId;
 
-// describe("ResourcesAvailability", () => {
-//     it("should reject non-string name", async () => {
-//         const res = await chai
-//             .request(app)
-//             .post("/api/v1/ResourcesAvailability")
-//             .send({
-//                 name: 123,
-//                 //contactInfo: "Fire", 
-//                 assistance: "MetService rescue team"
-//             });
+describe("ResourcesAvailability", () => {
+    it("should reject non-string name", async () => {
+        const res = await chai
+            .request(app)
+            .post("/api/v1/ResourcesAvailability")
+            .send({
+                name: 123,
+                //contactInfo: "Fire", 
+                assistance: "MetService rescue team"
+            });
 
-//         chai.expect(res.body.message).to.be.equal("Name should be a string");
-//     });
+        chai.expect(res.body.message).to.be.equal("Name should be a string");
+    });
 
 //     it("should create a valid rescource", async () => {
 //         const res = await chai.request(app).post("/api/v1/ResourcesAvailability").send({
@@ -96,4 +96,4 @@
 //                 `Resource with the id: ${resourcesId} successfully deleted`
 //             );
 //     });
-// });
+});
