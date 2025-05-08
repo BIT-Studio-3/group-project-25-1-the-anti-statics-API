@@ -2,7 +2,7 @@ import Joi from "joi";
 
 
 // Define the Alert schema based on the model structure
-const alertSchema = Joi.object({
+const resourceSchema = Joi.object({
     name: Joi.string().min(3).max(255).required().messages({
         "string.base": "Name should be a string",
         "string.empty": "Name cannot be empty",
@@ -54,7 +54,7 @@ const validateSchema = (schema, isRequired = false) => {
 };
 
 // Define POST and PUT validation middleware
-const validatePostResource = validateSchema(alertSchema, true);
-const validatePutResource = validateSchema(alertSchema);
+const validatePostResource = validateSchema(resourceSchema, true);
+const validatePutResource = validateSchema(resourceSchema);
 
 export { validatePostResource, validatePutResource };

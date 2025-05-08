@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const alertSchema = Joi.object({
+const hazardSchema = Joi.object({
     name: Joi.string().min(3).max(255).required().messages({
         "string.base": "Name should be a string",
         "string.empty": "Name cannot be empty",
@@ -53,8 +53,8 @@ const alertSchema = Joi.object({
 const validateSchema = (schema, isRequired = false) => {
     return (req, res, next) => {
         const { error } = isRequired
-            ? schema.required().validate(req.body)
-            : schema.validate(req.body);
+            ? schema.required().validate(req.body, { convert: false})
+            : schema.validate(req.body, { convert: false});
 
         if (error) {
             return res.status(409).json({
@@ -67,7 +67,7 @@ const validateSchema = (schema, isRequired = false) => {
 };
 
 // Define POST and PUT validation middleware
-const validatePostHazard = validateSchema(alertSchema, true);
-const validatePutHazard = validateSchema(alertSchema);
+const validatePostHazard = validateSchema(hazardSchema, true);
+const validatePutHazard = validateSchema(hazardSchema);
 
 export { validatePostHazard, validatePutHazard };
