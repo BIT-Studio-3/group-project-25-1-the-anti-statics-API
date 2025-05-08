@@ -2,7 +2,7 @@
 const getIndex = (req, res) => {
     // req is an object that contains information about the HTTP request. res is an object that contains information about the HTTP response.
     return res.status(200).json({
-      message: "Welcome to the staging environment of the Anti-Static DMS API",
+      message: "Welcome to the main environment Anti-Static DMS API",
     });
   };
   
