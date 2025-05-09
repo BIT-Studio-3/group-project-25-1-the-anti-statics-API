@@ -11,13 +11,13 @@ const resourceSchema = Joi.object({
         "any.required": "Name is required"
     }),
 
-    // contactInfo: Joi.string().min(3).max(100).required().messages({
-    //     "string.base": "Contact info should be a string",
-    //     "string.empty": "Contact info cannot be empty",
-    //     "string.min": "Contact info should have a minimum length of {#limit}",
-    //     "string.max": "Contact info should have a maximum length of {#limit}",
-    //     "any.required": "Contact info is required"
-    // }),
+    contactInfo: Joi.string().min(3).max(100).required().messages({
+        "string.base": "Contact info should be a string",
+        "string.empty": "Contact info cannot be empty",
+        "string.min": "Contact info should have a minimum length of {#limit}",
+        "string.max": "Contact info should have a maximum length of {#limit}",
+        "any.required": "Contact info is required"
+    }),
 
     assistance: Joi.string().min(3).max(100).required().messages({
         "string.base": "Assistance should be a string",
