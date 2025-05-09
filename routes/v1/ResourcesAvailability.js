@@ -13,14 +13,19 @@ import {
   deleteResourceAvailability,
 } from "../../controllers/v1/ResourcesAvailability.js";
 
-const resourceController = {
-    get: getResourcesAvailability,
-    getById: getResourceAvailability,
-    create: createResourceAvailability,
-    update: updateResourceAvailability,
-    delete: deleteResourceAvailability,
-  };
+import {
+  validatePostResource,
+  validatePutResource
+} from "../../middleware/validation/ResourceAvailability.js"
 
-const resourceRouter = createRouter(resourceController);
+const resourceController = {
+  get: getResourcesAvailability,
+  getById: getResourceAvailability,
+  create: createResourceAvailability,
+  update: updateResourceAvailability,
+  delete: deleteResourceAvailability,
+};
+
+const resourceRouter = createRouter(resourceController, validatePostResource, validatePutResource);
 
 export default resourceRouter;

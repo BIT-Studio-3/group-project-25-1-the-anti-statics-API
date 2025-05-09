@@ -13,6 +13,10 @@ import {
   deleteDamage,
 } from "../../controllers/v1/damages.js";
 
+import {
+  validatePostDamage,
+  validatePutDamage,
+} from "../../middleware/validation/damages.js";
 
 const damageController = {
   get: getDamages,
@@ -22,6 +26,6 @@ const damageController = {
   delete: deleteDamage,
 };
 
-const damageRouter = createRouter(damageController);
+const damageRouter = createRouter(damageController, validatePostDamage, validatePutDamage);
 
 export default damageRouter;
