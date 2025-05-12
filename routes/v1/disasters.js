@@ -1,31 +1,31 @@
 /**
- * @file Defines the route for managing hazards
+ * @file Defines the route for managing disasters
  * @author Anti Statics
  */
 
 import createRouter from "./base.js";
 
 import {
-  createHazard,
-  getHazards,
-  getHazard,
-  updateHazard,
-  deleteHazard,
-} from "../../controllers/v1/hazards.js";
+  createDisaster,
+  getDisasters,
+  getDisaster,
+  updateDisaster,
+  deleteDisaster,
+} from "../../controllers/v1/disasters.js";
 
 import {
-  validatePostHazard,
-  validatePutHazard,
-} from "../../middleware/validation/hazards.js";
+  validatePostDisaster,
+  validatePutDisaster,
+} from "../../middleware/validation/disaster.js";
 
-const damageController = {
-  get: getHazards,
-  getById: getHazard,
-  create: createHazard,
-  update: updateHazard,
-  delete: deleteHazard,
+const disasterController = {
+  get: getDisasters,
+  getById: getDisaster,
+  create: createDisaster,
+  update: updateDisaster,
+  delete: deleteDisaster,
 };
 
-const damageRouter = createRouter(damageController, validatePostHazard, validatePutHazard);
+const disasterRouter = createRouter(disasterController, validatePostDisaster, validatePutDisaster);
 
-export default damageRouter;
+export default disasterRouter;
