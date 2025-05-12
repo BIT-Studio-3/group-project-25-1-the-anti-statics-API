@@ -21,6 +21,9 @@ import hazardRoutes from "./routes/v1/hazards.js";
 // Import the ResourcesAvailability routes module
 import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
 
+// Import the disaster routes module
+import disasterRouter from "./routes/v1/disasters.js";
+
 import logger from "./middleware/logger.js";
 
 import auth from "./middleware/auth.js";
@@ -97,6 +100,9 @@ app.use("/api/v1/hazards", hazardRoutes);
 
 // Use the resources route
 app.use("/api/v1/ResourcesAvailability", resourceRoutes);
+
+// Use the disasters route
+app.use("/api/v1/disasters", disasterRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
