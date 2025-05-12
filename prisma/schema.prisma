@@ -55,6 +55,8 @@ model Disaster {
   responseTeam ResponseTeam?
 }
 
+// One-to-one between Disasters and response teams
+
 model ResponseTeam {
   id              String           @id @default(uuid())
   name            String
@@ -62,7 +64,7 @@ model ResponseTeam {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   disaster        Disaster         @relation(fields: [disasterId], references: [id])
-  disasterId      String @unique
+  disasterId      String           @unique
 }
 
 model Alert {
@@ -125,12 +127,13 @@ model User {
   teamMemberships  TeamMembership[] // New relation for multiple team memberships
 }
 
+// One-to-many relationship between users and team memberships
 model TeamMembership {
   id             String       @id @default(uuid())
-  userId         String       @unique
   responseTeamId String
   responseTeam   ResponseTeam @relation(fields: [responseTeamId], references: [id])
-  member           User         @relation(fields: [userId], references: [id])
+  userId         String       
+  member         User?        @relation(fields: [userId], references: [id])
   role           String
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now())
