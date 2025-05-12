@@ -30,6 +30,13 @@ enum DisasterStatus {
   RESOLVED
 }
 
+enum DisasterSeverity {
+  LOW
+  MODERATE
+  HIGH
+  CRITICAL
+}
+
 model Disaster {
   id           String         @id @default(uuid())
   title        String
@@ -37,7 +44,7 @@ model Disaster {
   location     Json // Store coordinates or region info
   description  String?
   status       DisasterStatus
-  severity     String
+  severity     DisasterSeverity
   controller   User           @relation("ControllerDisasters", fields: [controllerId], references: [id])
   controllerId String
   startTime    DateTime
