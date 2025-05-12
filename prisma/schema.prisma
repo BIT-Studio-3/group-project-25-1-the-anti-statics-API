@@ -38,31 +38,31 @@ enum DisasterSeverity {
 }
 
 model Disaster {
-  id             String           @id @default(uuid())
-  title          String
-  type           DisasterType
-  location       Json // Store coordinates or region info
-  description    String?
-  status         DisasterStatus
-  severity       DisasterSeverity
-  controller     User             @relation("ControllerDisasters", fields: [controllerId], references: [id])
-  controllerId   String
-  startTime      DateTime
-  endTime        DateTime?
-  //alerts       Alert[]        @relation("DisasterAlerts")
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  responseTeam   ResponseTeam?  @relation("DisasterResponseTeam")
+  id           String           @id @default(uuid())
+  title        String
+  type         DisasterType
+  location     Json // Store coordinates or region info
+  description  String?
+  status       DisasterStatus
+  severity     DisasterSeverity
+  controller   User             @relation(fields: [controllerId], references: [id])
+  controllerId String
+  startTime    DateTime
+  endTime      DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  teamId       String
+  responseTeam ResponseTeam?
 }
 
 model ResponseTeam {
-  id         String   @id @default(uuid())
-  name       String
-  disaster   Disaster  @relation("DisasterResponseTeam", fields: [disasterId], references: [id])
-  disasterId String    @unique
-  members    User[]   
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              String           @id @default(uuid())
+  name            String
+  teamMemberships TeamMembership[] // Relation to team memberships
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  disaster        Disaster         @relation(fields: [disasterId], references: [id])
+  disasterId      String @unique
 }
 
 model Alert {
@@ -111,17 +111,27 @@ model Damage {
 }
 
 model User {
-  id               String        @id @default(uuid())
+  id               String           @id @default(uuid())
   firstName        String
   lastName         String
-  emailAddress     String        @unique
+  emailAddress     String           @unique
   password         String
   organization     String
-  loginAttempts    Int           @default(0)
+  loginAttempts    Int              @default(0)
   lastLoginAttempt DateTime?
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @default(now())
-  disasters        Disaster[]    @relation("ControllerDisasters")
-  responseTeamId   String?
-  ResponseTeam     ResponseTeam? @relation(fields: [responseTeamId], references: [id])
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @default(now())
+  disasters        Disaster[]
+  teamMemberships  TeamMembership[] // New relation for multiple team memberships
+}
+
+model TeamMembership {
+  id             String       @id @default(uuid())
+  userId         String       @unique
+  responseTeamId String
+  responseTeam   ResponseTeam @relation(fields: [responseTeamId], references: [id])
+  member           User         @relation(fields: [userId], references: [id])
+  role           String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
 }
