@@ -32,7 +32,7 @@ const validateSchema = (schema, isRequired = false) => {
     };
 };
 
-const validatePostResponseTeam = validateSchema(responseTeamSchema, true);
-const validatePutResponseTeam = validateSchema(responseTeamSchema);
+const validatePostTeam = validateSchema(responseTeamSchema, true);
+const validatePutTeam = validateSchema(responseTeamSchema);
 
-export { validatePostResponseTeam, validatePutResponseTeam };
+export { validatePostTeam, validatePutTeam };
