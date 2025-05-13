@@ -1,14 +1,6 @@
 import Joi from "joi";
 
 const responseTeamSchema = Joi.object({
-    name: Joi.string().min(3).max(255).required().messages({
-        "string.base": "Name should be a string",
-        "string.empty": "Name cannot be empty",
-        "string.min": "Name should have a minimum length of {#limit}",
-        "string.max": "Name should have a maximum length of {#limit}",
-        "any.required": "Name is required"
-    }),
-
     disasterId: Joi.string().uuid().required().messages({
         "string.base": "Disaster ID should be a valid UUID",
         "string.guid": "Disaster ID should be a valid UUID",
