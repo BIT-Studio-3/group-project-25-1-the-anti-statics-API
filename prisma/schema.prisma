@@ -59,7 +59,6 @@ model Disaster {
 
 model ResponseTeam {
   id              String           @id @default(uuid())
-  name            String
   teamMemberships TeamMembership[] // Relation to team memberships
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
