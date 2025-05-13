@@ -18,7 +18,7 @@ import {
   validatePutTeamMembership,
 } from "../../middleware/validation/members.js";
 
-const disasterController = {
+const memberShipController = {
   get: getMemberShips,
   getById: getMemberShip,
   create: createMemberShip,
@@ -26,6 +26,6 @@ const disasterController = {
   delete: deleteMemberShip,
 };
 
-const memberShipRouter = createRouter(disasterController, validatePostTeamMembership, validatePutTeamMembership);
+const memberShipRouter = createRouter(memberShipController, validatePostTeamMembership, validatePutTeamMembership);
 
 export default memberShipRouter;
