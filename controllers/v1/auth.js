@@ -124,4 +124,20 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+const getUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findAll();
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+    return res.status(200).json({
+      data: users,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+export { register, login, getUsers };
