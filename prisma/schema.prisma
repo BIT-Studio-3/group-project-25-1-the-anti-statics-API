@@ -4,6 +4,21 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+enum Role {
+  ADMIN
+  BASIC
+}
+
+enum CIMS {
+  SAFETY
+  INTELLIGENCE
+  PLANNING
+  OPERATIONS
+  LOGISTICS
+  PIM
+  WELFARE
+}
+
 generator client {
   provider = "prisma-client-js"
 }
