@@ -31,6 +31,8 @@ import auth from "./middleware/auth.js";
 import authRoutes from "./routes/v1/auth.js";
 
 import { isContentTypeApplicationJSON } from "./middleware/utils.js";
+import teamRouter from "./routes/v1/teams.js";
+import memberShipRouter from "./routes/v1/memberships.js";
 
 // Create an Express application
 const app = express();
@@ -103,6 +105,12 @@ app.use("/api/v1/ResourcesAvailability", resourceRoutes);
 
 // Use the disasters route
 app.use("/api/v1/disasters", disasterRouter);
+
+// Use the teams route
+app.use("/api/v1/teams", teamRouter);
+
+// Use the memberships route
+app.use("/api/v1/memberships", memberShipRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
