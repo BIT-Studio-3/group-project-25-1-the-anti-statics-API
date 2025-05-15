@@ -1,4 +1,4 @@
-import { DisasterSeverity, DisasterStatus, DisasterType } from "@prisma/client";
+import { DisasterSeverity, DisasterStatus, DisasterType } from "@prisma/client"; //Import enums
 import Joi from "joi";
 
 const disasterSchema = Joi.object({
