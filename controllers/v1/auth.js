@@ -135,7 +135,7 @@ const login = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({ select: selectObject });
     if (!users || users.length === 0) {
       return res.status(404).json({ message: "No users found" });
     }
