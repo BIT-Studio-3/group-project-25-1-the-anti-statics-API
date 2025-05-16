@@ -3,6 +3,15 @@ import jwt from "jsonwebtoken";
 
 import prisma from "../../prisma/client.js";
 
+const selectObject = {
+  id: true,                      
+  emailAddress: true,            
+  organization: true,    
+  loginAttempts: true,   
+  createdAt: true,      
+  updatedAt: true     
+};
+
 const register = async (req, res) => {
   try {
     const { firstName, lastName, emailAddress, password, organization } = req.body;
