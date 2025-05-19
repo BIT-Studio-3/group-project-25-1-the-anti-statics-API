@@ -80,6 +80,7 @@ model User {
   emailAddress     String    @unique
   password         String
   organization     String
+  role             Role
   loginAttempts    Int       @default(0)
   lastLoginAttempt DateTime?
   createdAt        DateTime  @default(now())
