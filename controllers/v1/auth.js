@@ -3,9 +3,18 @@ import jwt from "jsonwebtoken";
 
 import prisma from "../../prisma/client.js";
 
+const selectObject = {
+  id: true,                      
+  emailAddress: true,            
+  organization: true,    
+  loginAttempts: true,   
+  createdAt: true,      
+  updatedAt: true     
+};
+
 const register = async (req, res) => {
   try {
-    const { firstName, lastName, emailAddress, password, organization } = req.body;
+    const { firstName, lastName, emailAddress, password, organization, role } = req.body;
 
     let user = await prisma.user.findUnique({ where: { emailAddress } });
 
@@ -25,7 +34,7 @@ const register = async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, salt);
 
     user = await prisma.user.create({
-      data: { firstName, lastName, emailAddress, password: hashedPassword, organization },
+      data: { firstName, lastName, emailAddress, password: hashedPassword, organization, role },
       select: {
         // Select only the fields you want to return
         id: true,
@@ -124,4 +133,20 @@ const login = async (req, res) => {
   }
 };
 
-export { register, login };
+const getUsers = async (req, res) => {
+  try {
+    const users = await prisma.user.findMany({ select: selectObject });
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
+    }
+    return res.status(200).json({
+      data: users,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
+  }
+}
+
+export { register, login, getUsers };
