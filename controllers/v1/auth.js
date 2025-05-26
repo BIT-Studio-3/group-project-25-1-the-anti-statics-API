@@ -35,16 +35,7 @@ const register = async (req, res) => {
 
     user = await prisma.user.create({
       data: { firstName, lastName, emailAddress, password: hashedPassword, organization, role },
-      select: {
-        // Select only the fields you want to return
-        id: true,
-        firstName: true,
-        lastName: true,
-        emailAddress: true,
-        organization: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      select: selectObject
     });
 
     return res.status(201).json({
@@ -125,7 +116,8 @@ const login = async (req, res) => {
     return res.status(200).json({
       message: "User successfully logged in",
       token: token,
-      user: req.user
+      id: user.id,
+      role: user.role
     });
   } catch (err) {
     console.error(err.message);
