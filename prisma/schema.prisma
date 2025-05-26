@@ -144,7 +144,7 @@ model User {
 
 enum Status {
   ACTIVE
-  OFFLINE
+  INACTIVE
 }
 
 // One-to-many relationship between users and team memberships
