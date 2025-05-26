@@ -66,8 +66,7 @@ model Disaster {
   endTime      DateTime?
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
-  teamId       String
-  responseTeam ResponseTeam?
+  responseTeam ResponseTeam?    
 }
 
 // One-to-one between Disasters and response teams
