@@ -118,6 +118,7 @@ const login = async (req, res) => {
       token: token,
       id: user.id,
       name: `${user.firstName} ${user.lastName}`,
+      email: user.emailAddress,
       role: user.role
     });
   } catch (err) {
