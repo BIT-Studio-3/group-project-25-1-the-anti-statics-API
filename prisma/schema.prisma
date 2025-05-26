@@ -142,6 +142,11 @@ model User {
   teamMemberships  TeamMembership[] // New relation for multiple team memberships
 }
 
+enum Status {
+  ACTIVE
+  OFFLINE
+}
+
 // One-to-many relationship between users and team memberships
 model TeamMembership {
   id             String       @id @default(uuid())
