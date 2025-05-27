@@ -6,6 +6,18 @@
 import prisma from "../../prisma/client.js";
 import Repository from "../../repositories/generic.js";
 
+const selectObject = {
+  id: true,          
+  disasterId: true,
+  createdAt: true,
+  updatedAt: true,   
+  disaster: {
+    select: {
+      title: true
+    }
+  }
+}
+
 const teamRepository = new Repository("ResponseTeam");
 
 const createTeam = async (req, res) => {
@@ -35,7 +47,7 @@ const createTeam = async (req, res) => {
 
 const getTeams = async (req, res) => {
   try {
-    const teams = await teamRepository.findAll();
+    const teams = await teamRepository.findAll(selectObject);
     if (!teams || teams.length === 0) {
       return res.status(404).json({ message: "No teams found" });
     }
