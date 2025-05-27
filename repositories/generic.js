@@ -9,8 +9,8 @@ class Repository {
     return await prisma[this.model].create({ data });
   }
 
-  async findAll() {
-    return await prisma[this.model].findMany();
+  async findAll(select) {
+    return await prisma[this.model].findMany({ select });
   }
 
   async findById(id) {
