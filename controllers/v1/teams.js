@@ -3,12 +3,23 @@
  * @author Samuel Batchelor
  */
 
+import prisma from "../../prisma/client.js";
 import Repository from "../../repositories/generic.js";
 
 const teamRepository = new Repository("ResponseTeam");
 
 const createTeam = async (req, res) => {
   try {
+    const { disasterId } = req.body
+    // Find if a disaster already has one team
+    const existingDisaster = await prisma.responseTeam.findFirst({
+      where: { disasterId },
+    });
+
+    if (existingDisaster) {
+      return res.status(409).json({ message: `There is already a team for this disaster` });
+    }
+
     await teamRepository.create(req.body);
     const newTeams = await teamRepository.findAll();
     return res.status(201).json({
