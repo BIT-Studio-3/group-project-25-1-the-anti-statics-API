@@ -49,11 +49,7 @@ const getTeams = async (req, res) => {
   try {
     const filters = {
       disasterId: req.query.disasterId || undefined,
-      disaster: {
-        select: {
-          title: req.query.title || undefined
-        }
-      }
+      disaster: req.query.disaster || undefined
     }
 
     const sortBy = req.query.sortBy || "id";
