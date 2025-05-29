@@ -26,6 +26,11 @@ const createUser = async (req, res) => {
 const getUsers = async (req, res) => {
     try {
         const users = await userRepository.findAll();
+        const { role, id } = req.user;
+
+        if (role === Role.BASIC) {
+            return users.filter(user => user.id === id);
+        }
         if (!users || users.length === 0) {
             return res.status(404).json({ message: "No users found" });
         }
@@ -41,12 +46,21 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
+        const { role, id } = req.user;
         const user = await userRepository.findById(req.params.id);
         if (!user) {
             return res.status(404).json({
                 message: `No user with the id: ${req.params.id} found`,
             });
         }
+        if (req.user.role === Role.BASIC) {
+            if (user.id !== id) {
+                return res.status(403).json({
+                    message: `You are not authorized to access other users data`,
+                });
+            }
+        }
+
         return res.status(200).json({
             data: user,
         });
@@ -59,12 +73,27 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
+
+        const { role } = req.user;
+
         let user = await userRepository.findById(req.params.id);
         if (!user) {
             return res.status(404).json({
                 message: `No user with the id: ${req.params.id} found`,
             });
         }
+        if (role === Role.ADMIN) {
+            if (user.role !== Role.BASIC && user.id !== id)
+                return res.status(403).json({
+                    message: "ADMIN cannot update other ADMIN users",
+                });
+        }
+        else if (role === Role.BASIC && user.id !== id) {
+            return res.status(403).json({
+                message: "BASIC cannot update other users",
+            });
+        }
+
         user = await userRepository.update(req.params.id, req.body);
         return res.status(200).json({
             message: `user with the id: ${req.params.id} successfully updated`,
@@ -79,11 +108,32 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
+        const { role, id } = req.user;
         const user = await userRepository.findById(req.params.id);
+
         if (!user) {
             return res.status(404).json({
                 message: `No user with the id: ${req.params.id} found`,
             });
+        }
+        if (user.id === id) {
+            return res.status(403).json({
+                message: "You cannot delete your own account",
+            });
+        }
+        else if (role === Role.ADMIN) {
+            if (user.role === role && user.id !== id) {
+                return res.status(403).json({
+                    message: `ADMINs cannot delete other ADMINs `,
+                });
+            }
+        }
+        else if (role === Role.BASIC) {
+            if (user.id !== id) {
+                return res.status(403).json({
+                    message: `Deleting another user is not allowed`,
+                });
+            }
         }
         await userRepository.delete(req.params.id);
         return res.json({
