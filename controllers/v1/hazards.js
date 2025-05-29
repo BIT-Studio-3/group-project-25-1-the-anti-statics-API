@@ -4,7 +4,15 @@
  */
 
 import Repository from "../../repositories/generic.js";
-
+const selectObject = {
+  id: true,
+  name: true,
+  type: true,
+  level: true,
+  city: true,
+  location: true,
+  description: true,
+}
 const hazardRepository = new Repository("Hazard");
 
 const createHazard = async (req, res) => {
@@ -24,7 +32,19 @@ const createHazard = async (req, res) => {
 
 const getHazards = async (req, res) => {
   try {
-    const hazards = await hazardRepository.findAll();
+    const filters = {
+      name: req.query.name || undefined,
+      type: req.query.type || undefined,
+      level: req.query.level || undefined,
+      city: req.query.city || undefined,
+      location: req.query.location || undefined,
+      description: req.query.description || undefined,
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const hazards = await hazardRepository.findAll(selectObject, filters, sortBy, sortOrder);
     if (!hazards || hazards.length === 0) {
       return res.status(404).json({ message: "No hazards found" });
     }

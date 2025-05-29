@@ -5,12 +5,20 @@
 
 import Repository from "../../repositories/generic.js";
 
+const selectObject = {
+  id: true,
+  responseTeamId: true,
+  userId: true,
+  member: true,
+  role: true,
+}
+
 const memberShipRepository = new Repository("TeamMembership");
 
 const createMemberShip = async (req, res) => {
   try {
     await memberShipRepository.create(req.body);
-    const newMemberShips = await memberShipRepository.findAll();
+    const newMemberShips = await memberShipRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Membership successfully created",
       data: newMemberShips,
@@ -24,7 +32,19 @@ const createMemberShip = async (req, res) => {
 
 const getMemberShips = async (req, res) => {
   try {
-    const memberShips = await memberShipRepository.findAll();
+    const filters = {
+      responseTeamId: req.query.responseTeamId || undefined,
+      userId: req.query.userId || undefined,
+      member: req.query.member || undefined,
+      role: req.query.role || undefined,
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const memberShips = await memberShipRepository.findAll(
+      selectObject, filters, sortBy, sortOrder
+    );
     if (!memberShips || memberShips.length === 0) {
       return res.status(404).json({ message: "No memberships found" });
     }

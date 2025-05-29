@@ -7,10 +7,18 @@ import Repository from "../../repositories/generic.js";
 
 const alertRepository = new Repository("Alert");
 
+const selectObject = {
+  title: true,
+  emergencyType: true,
+  alertLevel: true,
+  region: true,
+  description: true,
+}
+
 const createAlert = async (req, res) => {
   try {
     await alertRepository.create(req.body);
-    const newAlerts = await alertRepository.findAll();
+    const newAlerts = await alertRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Alert successfully created",
       data: newAlerts,
@@ -24,7 +32,18 @@ const createAlert = async (req, res) => {
 
 const getAlerts = async (req, res) => {
   try {
-    const alerts = await alertRepository.findAll();
+    const filters = {
+      title: req.query.title,
+      emergencyType: req.query.emergencyType,
+      alertLevel: req.query.alertLevel,
+      region: req.query.region,
+      description: req.query.description,
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const alerts = await alertRepository.findAll(selectObject, filters, sortBy, sortOrder);
     if (!alerts || alerts.length === 0) {
       return res.status(404).json({ message: "No alerts found" });
     }
