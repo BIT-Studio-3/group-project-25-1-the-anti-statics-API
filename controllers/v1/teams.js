@@ -7,10 +7,10 @@ import prisma from "../../prisma/client.js";
 import Repository from "../../repositories/generic.js";
 
 const selectObject = {
-  id: true,          
+  id: true,
   disasterId: true,
   createdAt: true,
-  updatedAt: true,   
+  updatedAt: true,
   disaster: {
     select: {
       title: true
@@ -47,7 +47,19 @@ const createTeam = async (req, res) => {
 
 const getTeams = async (req, res) => {
   try {
-    const teams = await teamRepository.findAll(selectObject);
+    const filters = {
+      disasterId: req.query.disasterId || undefined,
+      disaster: {
+        select: {
+          title: req.query.title || undefined
+        }
+      }
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const teams = await teamRepository.findAll(selectObject, filters, sortBy, sortOrder);
     if (!teams || teams.length === 0) {
       return res.status(404).json({ message: "No teams found" });
     }
