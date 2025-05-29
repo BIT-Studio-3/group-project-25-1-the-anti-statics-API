@@ -7,6 +7,15 @@ import Repository from "../../repositories/generic.js";
 
 const damageRepository = new Repository("Damage");
 
+const selectObject = {
+  reporterName: true,
+  damageType: true,
+  damageLevel: true,
+  location: true,
+  countAffected: true,
+  cause: true
+}
+
 const createDamage = async (req, res) => {
   try {
     await damageRepository.create(req.body);
@@ -24,7 +33,19 @@ const createDamage = async (req, res) => {
 
 const getDamages = async (req, res) => {
   try {
-    const damages = await damageRepository.findAll();
+    const filters = {
+      reporterName: req.query.reporterName || undefined,
+      damageType: req.query.damageType || undefined,
+      damageLevel: req.query.damageLevel || undefined,
+      location: req.query.location || undefined,
+      countAffected: req.query.countAffected || undefined,
+      cause: req.query.cause || undefined
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const damages = await damageRepository.findAll(selectObject, filters, sortBy, sortOrder);
     if (!damages || damages.length === 0) {
       return res.status(404).json({ message: "No damages found" });
     }
