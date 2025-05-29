@@ -1,4 +1,5 @@
 import Repository from "../../repositories/generic.js";
+import { Role } from "@prisma/client";
 
 const userRepository = new Repository("User");
 
