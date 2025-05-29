@@ -5,6 +5,11 @@ const userRepository = new Repository("User");
 
 const createUser = async (req, res) => {
   try {
+    if (req.user.role === Role.BASIC)  {
+            return res.status(403).json({
+                message: "BASIC users cannot create users",
+            });
+        }
     await userRepository.create(req.body);
     const newUsers = await userRepository.findAll();
     return res.status(201).json({
