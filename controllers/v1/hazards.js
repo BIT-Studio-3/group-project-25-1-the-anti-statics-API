@@ -32,14 +32,14 @@ const createHazard = async (req, res) => {
 const getHazards = async (req, res) => {
   try {
     const filters = {
-      name: req.query.name,
-      type: req.query.type,
-      level: req.query.level,
-      city: req.query.city,
-      location: req.query.location,
-      description: req.query.description,
+      name: req.query.name || undefined,
+      type: req.query.type || undefined,
+      level: req.query.level || undefined,
+      city: req.query.city || undefined,
+      location: req.query.location || undefined,
+      description: req.query.description || undefined,
     }
-    
+
     const sortBy = req.query.sortBy || "id";
     const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
 
