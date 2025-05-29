@@ -24,6 +24,8 @@ import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
 // Import the disaster routes module
 import disasterRouter from "./routes/v1/disasters.js";
 
+import userRouter from "./routes/v1/users.js";
+
 import logger from "./middleware/logger.js";
 
 import auth from "./middleware/auth.js";
