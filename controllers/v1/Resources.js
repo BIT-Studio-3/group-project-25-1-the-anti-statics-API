@@ -1,13 +1,13 @@
 /**
- * @file Manages business logic for Resources Availability
+ * @file Manages business logic for Resources
  * @author Paras Paras
  */
 
 import Repository from "../../repositories/generic.js";
 
-const resourceRepository = new Repository("ResourcesAvailability");
+const resourceRepository = new Repository("Resources");
 
-const createResourceAvailability = async (req, res) => {
+const createResource = async (req, res) => {
     try {
       await resourceRepository.create(req.body);
       const newResources = await resourceRepository.findAll();
@@ -22,7 +22,7 @@ const createResourceAvailability = async (req, res) => {
     }
   };
 
-  const getResourcesAvailability = async (req, res) => {
+  const getResources = async (req, res) => {
     try {
       const resources = await resourceRepository.findAll();
       if (!resources || resources.length === 0) {
@@ -38,7 +38,7 @@ const createResourceAvailability = async (req, res) => {
     }
   };
 
-  const getResourceAvailability = async (req, res) => {
+  const getResource = async (req, res) => {
     try {
       const resource = await resourceRepository.findById(req.params.id);
       if (!resource) {
@@ -56,7 +56,7 @@ const createResourceAvailability = async (req, res) => {
     }
   };
 
-  const updateResourceAvailability = async (req, res) => {
+  const updateResource = async (req, res) => {
     try {
       let resource = await resourceRepository.findById(req.params.id);
       if (!resource) {
@@ -76,7 +76,7 @@ const createResourceAvailability = async (req, res) => {
     }
   };
 
-  const deleteResourceAvailability = async (req, res) => {
+  const deleteResource = async (req, res) => {
     try {
       const resource = await resourceRepository.findById(req.params.id);
       if (!resource) {
@@ -96,9 +96,9 @@ const createResourceAvailability = async (req, res) => {
   };
 
   export {
-    createResourceAvailability,
-    getResourcesAvailability,
-    getResourceAvailability,
-    updateResourceAvailability,
-    deleteResourceAvailability,
+    createResource,
+    getResources,
+    getResource,
+    updateResource,
+    deleteResource,
   };
