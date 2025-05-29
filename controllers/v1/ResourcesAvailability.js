@@ -6,6 +6,7 @@
 import Repository from "../../repositories/generic.js";
 
 const selectObject = {
+  id: true,
   name: true,
   contactInfo: true,
   assistance: true,
@@ -17,7 +18,7 @@ const resourceRepository = new Repository("ResourcesAvailability");
 const createResourceAvailability = async (req, res) => {
   try {
     await resourceRepository.create(req.body);
-    const newResources = await resourceRepository.findAll();
+    const newResources = await resourceRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Resource successfully created",
       data: newResources,
@@ -41,7 +42,7 @@ const getResourcesAvailability = async (req, res) => {
     const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
 
     const resources = await resourceRepository.findAll(selectObject, filters, sortBy, sortOrder);
-    
+
     if (!resources || resources.length === 0) {
       return res.status(404).json({ message: "No resources found" });
     }

@@ -5,6 +5,7 @@
 
 import Repository from "../../repositories/generic.js";
 const selectObject = {
+  id: true,
   name: true,
   type: true,
   level: true,

@@ -6,6 +6,7 @@
 import Repository from "../../repositories/generic.js";
 
 const selectObject = {
+  id: true,
   responseTeamId: true,
   userId: true,
   member: true,
@@ -17,7 +18,7 @@ const memberShipRepository = new Repository("TeamMembership");
 const createMemberShip = async (req, res) => {
   try {
     await memberShipRepository.create(req.body);
-    const newMemberShips = await memberShipRepository.findAll();
+    const newMemberShips = await memberShipRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Membership successfully created",
       data: newMemberShips,

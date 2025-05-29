@@ -8,6 +8,7 @@ import Repository from "../../repositories/generic.js";
 const damageRepository = new Repository("Damage");
 
 const selectObject = {
+  id: true,
   reporterName: true,
   damageType: true,
   damageLevel: true,
@@ -19,7 +20,7 @@ const selectObject = {
 const createDamage = async (req, res) => {
   try {
     await damageRepository.create(req.body);
-    const newDamages = await damageRepository.findAll();
+    const newDamages = await damageRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Damage successfully recorded",
       data: newDamages,

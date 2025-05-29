@@ -18,7 +18,7 @@ const selectObject = {
 const createAlert = async (req, res) => {
   try {
     await alertRepository.create(req.body);
-    const newAlerts = await alertRepository.findAll();
+    const newAlerts = await alertRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Alert successfully created",
       data: newAlerts,

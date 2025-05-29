@@ -33,7 +33,7 @@ const createTeam = async (req, res) => {
     }
 
     await teamRepository.create(req.body);
-    const newTeams = await teamRepository.findAll();
+    const newTeams = await teamRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Team successfully created",
       data: newTeams,

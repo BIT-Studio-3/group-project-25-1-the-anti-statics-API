@@ -21,7 +21,7 @@ const disasterRepository = new Repository("Disaster");
 const createDisaster = async (req, res) => {
   try {
     await disasterRepository.create(req.body);
-    const newDisasters = await disasterRepository.findAll();
+    const newDisasters = await disasterRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Disaster successfully created",
       data: newDisasters,
