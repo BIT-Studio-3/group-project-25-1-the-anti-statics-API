@@ -108,6 +108,8 @@ app.use("/api/v1/ResourcesAvailability", resourceRoutes);
 // Use the disasters route
 app.use("/api/v1/disasters", disasterRouter);
 
+app.use("/api/v1/users", userRouter);
+
 // Use the teams route
 app.use("/api/v1/teams", teamRouter);
 
