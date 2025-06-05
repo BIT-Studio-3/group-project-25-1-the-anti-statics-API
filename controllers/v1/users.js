@@ -66,7 +66,7 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const { role, id } = req.user;
+        const { role, id } = req.body;
         const user = await userRepository.findById(req.params.id);
         if (!user) {
             return res.status(404).json({
@@ -94,7 +94,7 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
 
-        const { role } = req.user;
+        const { role } = req.body;
 
         let user = await userRepository.findById(req.params.id);
         if (!user) {
@@ -128,7 +128,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const { role, id } = req.user;
+        const { role, id } = req.body;
         const user = await userRepository.findById(req.params.id);
 
         if (!user) {
