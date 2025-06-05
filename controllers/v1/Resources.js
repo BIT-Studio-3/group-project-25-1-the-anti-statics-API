@@ -13,7 +13,7 @@ const selectObject = {
   conditions: true,
 }
 
-const resourceRepository = new Repository("Resources");
+const resourceRepository = new Repository("Resource");
 
 const createResource = async (req, res) => {
   try {
