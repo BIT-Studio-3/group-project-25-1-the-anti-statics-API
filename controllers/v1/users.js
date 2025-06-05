@@ -73,7 +73,7 @@ const getUser = async (req, res) => {
                 message: `No user with the id: ${req.params.id} found`,
             });
         }
-        if (req.user.role === Role.BASIC) {
+        if (role === Role.BASIC) {
             if (user.id !== id) {
                 return res.status(403).json({
                     message: `You are not authorized to access other users data`,
