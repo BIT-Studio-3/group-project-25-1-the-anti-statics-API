@@ -103,7 +103,7 @@ app.use("/api/v1/damages", damageRoutes);
 app.use("/api/v1/hazards", hazardRoutes);
 
 // Use the resources route
-app.use("/api/v1/Resources", resourceRoutes);
+app.use("/api/v1/resources", resourceRoutes);
 
 // Use the disasters route
 app.use("/api/v1/disasters", disasterRouter);
