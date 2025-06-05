@@ -3,6 +3,15 @@ import { Role } from "@prisma/client";
 
 const userRepository = new Repository("User");
 
+const selectObject = {
+    id: true,
+    firstName: true,
+    lastName: true,
+    organization: true,
+    role: true,
+    status: true
+}
+
 const createUser = async (req, res) => {
     try {
         if (req.user.role === Role.BASIC) {
