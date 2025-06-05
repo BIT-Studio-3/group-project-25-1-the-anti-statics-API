@@ -3,6 +3,15 @@ import { Role } from "@prisma/client";
 
 const userRepository = new Repository("User");
 
+const selectObject = {
+    id: true,
+    firstName: true,
+    lastName: true,
+    organization: true,
+    role: true,
+    status: true
+}
+
 const createUser = async (req, res) => {
     try {
         if (req.user.role === Role.BASIC) {
@@ -25,8 +34,19 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await userRepository.findAll();
-        const { role, id } = req.user;
+        const filters = {
+            firstName: req.query.firstName || undefined,
+            lastName: req.query.lastName || undefined,
+            organization: req.query.organization || undefined,
+            role: req.query.role || undefined,
+            status: req.query.status || undefined
+        }
+
+        const sortBy = req.query.sortBy || "id";
+        const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+        const users = await userRepository.findAll(selectObject, filters, sortBy, sortOrder);
+        const { role, id } = req.body;
 
         if (role === Role.BASIC) {
             return users.filter(user => user.id === id);
@@ -46,14 +66,14 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const { role, id } = req.user;
+        const { role, id } = req.body;
         const user = await userRepository.findById(req.params.id);
         if (!user) {
             return res.status(404).json({
                 message: `No user with the id: ${req.params.id} found`,
             });
         }
-        if (req.user.role === Role.BASIC) {
+        if (role === Role.BASIC) {
             if (user.id !== id) {
                 return res.status(403).json({
                     message: `You are not authorized to access other users data`,
@@ -74,7 +94,7 @@ const getUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
 
-        const { role } = req.user;
+        const { role } = req.body;
 
         let user = await userRepository.findById(req.params.id);
         if (!user) {
@@ -108,7 +128,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const { role, id } = req.user;
+        const { role, id } = req.body;
         const user = await userRepository.findById(req.params.id);
 
         if (!user) {
