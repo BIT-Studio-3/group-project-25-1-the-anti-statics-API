@@ -18,8 +18,8 @@ import damageRoutes from "./routes/v1/damages.js";
 // Import the hazards routes module
 import hazardRoutes from "./routes/v1/hazards.js";
 
-// Import the ResourcesAvailability routes module
-import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
+// Import the Resources routes module
+import resourceRoutes from "./routes/v1/Resources.js";
 
 // Import the disaster routes module
 import disasterRouter from "./routes/v1/disasters.js";
@@ -103,7 +103,7 @@ app.use("/api/v1/damages", damageRoutes);
 app.use("/api/v1/hazards", hazardRoutes);
 
 // Use the resources route
-app.use("/api/v1/ResourcesAvailability", resourceRoutes);
+app.use("/api/v1/Resources", resourceRoutes);
 
 // Use the disasters route
 app.use("/api/v1/disasters", disasterRouter);

@@ -103,7 +103,7 @@ model Hazard {
   updatedAt   DateTime @updatedAt
 }
 
-model ResourcesAvailability {
+model Resources {
   id          String   @id @default(uuid())
   name        String // Organization Name
   contactInfo String // Contact Information
