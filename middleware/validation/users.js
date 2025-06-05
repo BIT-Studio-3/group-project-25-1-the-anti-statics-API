@@ -32,14 +32,17 @@ const userSchema = Joi.object({
         "any.required": "password is required",
     }),
 
+    organization: Joi.string().min(2).max(100).required().messages({
+        "string.base": "organization should be a string",
+        "string.empty": "organization cannot be empty",
+        "string.min": "organization should have a minimum length of {#limit}",
+        "string.max": "organization should have a maximum length of {#limit}",
+        "any.required": "organization is required"
+    }),
+
     role: Joi.string().valid("ADMIN", "BASIC").messages({
         "string.base": "Role should be a string",
         "any.only": "Role must be one of [ADMIN, BASIC]",
-    }),
-
-    status: Joi.string().valid("ACTIVE", "BASIC").messages({
-        "string.base": "Status should be a string",
-        "any.only": "Role must be one of [ACTIVE, INACTIVE]",
     }),
 });
 
