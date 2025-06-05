@@ -14,7 +14,7 @@ const selectObject = {
 
 const createUser = async (req, res) => {
     try {
-        if (req.user.role === Role.BASIC) {
+        if (req.body.role === Role.BASIC) {
             return res.status(403).json({
                 message: "BASIC users cannot create users",
             });
