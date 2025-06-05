@@ -34,8 +34,16 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await userRepository.findAll();
-        const { role, id } = req.user;
+        const filters = {
+            role: req.query.role || undefined,
+            status: req.query.status || undefined
+        }
+
+        const sortBy = req.query.sortBy || "id";
+        const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+        const users = await userRepository.findAll(selectObject, filters, sortBy, sortOrder);
+        const { role, id } = req.body;
 
         if (role === Role.BASIC) {
             return users.filter(user => user.id === id);
