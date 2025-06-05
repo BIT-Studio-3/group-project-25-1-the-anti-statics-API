@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
             });
         }
         await userRepository.create(req.body);
-        const newUsers = await userRepository.findAll();
+        const newUsers = await userRepository.findAll(selectObject);
         return res.status(201).json({
             message: "User successfully created",
             data: newUsers,
