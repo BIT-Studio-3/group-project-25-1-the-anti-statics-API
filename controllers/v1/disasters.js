@@ -1,16 +1,27 @@
 /**
- * @file Manages business logic for hazards
+ * @file Manages business logic for disasters
  * @author Samuel Batchelor
  */
 
 import Repository from "../../repositories/generic.js";
+
+const selectObject = {
+  id: true,
+  title: true,
+  type: true,
+  location: true,
+  description: true,
+  status: true,
+  severity: true,
+  controllerId: true,
+}
 
 const disasterRepository = new Repository("Disaster");
 
 const createDisaster = async (req, res) => {
   try {
     await disasterRepository.create(req.body);
-    const newDisasters = await disasterRepository.findAll();
+    const newDisasters = await disasterRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Disaster successfully created",
       data: newDisasters,
@@ -24,7 +35,21 @@ const createDisaster = async (req, res) => {
 
 const getDisasters = async (req, res) => {
   try {
-    const disasters = await disasterRepository.findAll();
+    const filters = {
+      title: req.query.title || undefined,
+      type: req.query.type || undefined,
+      location: req.query.location || undefined,
+      description: req.query.description || undefined,
+      status: req.query.status || undefined,
+      severity: req.query.severity || undefined,
+      controllerId: req.query.controllerId || undefined,
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const disasters = await disasterRepository.findAll(selectObject, filters, sortBy, sortOrder);
+
     if (!disasters || disasters.length === 0) {
       return res.status(404).json({ message: "No disasters found" });
     }

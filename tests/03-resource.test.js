@@ -8,11 +8,11 @@ const chai = chaiModule.use(chaiHttp);
 
 let resourcesId;
 
-describe("ResourcesAvailability", () => {
+describe("Resources", () => {
     it("should reject non-string name", async () => {
         const res = await chai
             .request(app)
-            .post("/api/v1/ResourcesAvailability")
+            .post("/api/v1/Resources")
             .send({
                 name: 123,
                 contactInfo: "Fire", 
@@ -23,7 +23,7 @@ describe("ResourcesAvailability", () => {
     });
 
     it("should create a valid rescource", async () => {
-        const res = await chai.request(app).post("/api/v1/ResourcesAvailability").send({
+        const res = await chai.request(app).post("/api/v1/Resources").send({
             name: "MetService",
             contactInfo: "Fire",
             assistance: "MetService rescue team",
@@ -35,8 +35,8 @@ describe("ResourcesAvailability", () => {
         resourcesId = res.body.data[0].id;
     });
 
-    it("should retrieve all ResourcesAvailability", async () => {
-        const res = await chai.request(app).get("/api/v1/ResourcesAvailability");
+    it("should retrieve all Resources", async () => {
+        const res = await chai.request(app).get("/api/v1/Resources");
 
         chai.expect(res.body.data).to.be.an("array");
     });
@@ -44,13 +44,13 @@ describe("ResourcesAvailability", () => {
     it("should retrieve a resource by ID", async () => {
         const res = await chai
             .request(app)
-            .get(`/api/v1/ResourcesAvailability/${resourcesId}`);
+            .get(`/api/v1/Resources/${resourcesId}`);
 
         chai.expect(res.body.data.name).to.be.equal("MetService");
     });
 
-    it("should filter ResourcesAvailability by name", async () => {
-        const res = await chai.request(app).get("/api/v1/ResourcesAvailability?name=MetService");
+    it("should filter Resources by name", async () => {
+        const res = await chai.request(app).get("/api/v1/Resources?name=MetService");
 
         chai.expect(res.body.data[0].name).to.be.equal("MetService");
     });
@@ -58,7 +58,7 @@ describe("ResourcesAvailability", () => {
     it("should reject non-string assistance during update", async () => {
         const res = await chai
             .request(app)
-            .put(`/api/v1/ResourcesAvailability/${resourcesId}`)
+            .put(`/api/v1/Resources/${resourcesId}`)
             .send({
                 name: "MetService",
                 contactInfo: "Fire",
@@ -71,7 +71,7 @@ describe("ResourcesAvailability", () => {
     it("should update a valid rescource", async () => {
         const res = await chai
             .request(app)
-            .put(`/api/v1/ResourcesAvailability/${resourcesId}`)
+            .put(`/api/v1/Resources/${resourcesId}`)
             .send({
                 name: "MetService",
                 contactInfo: "Fire",
@@ -88,7 +88,7 @@ describe("ResourcesAvailability", () => {
     it("should delete a rescource by ID", async () => {
         const res = await chai
             .request(app)
-            .delete(`/api/v1/ResourcesAvailability/${resourcesId}`);
+            .delete(`/api/v1/Resources/${resourcesId}`);
 
         chai
             .expect(res.body.message)

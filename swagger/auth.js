@@ -5,10 +5,6 @@
  *     User:
  *       type: object
  *       properties:
- *         id:
- *           type: string
- *           format: uuid
- *           example: "123e4567-e89b-12d3-a456-426614174000"
  *         firstName:
  *           type: string
  *           example: "John"
@@ -25,21 +21,9 @@
  *         organization:
  *           type: string
  *           example: "MetService"
- *         loginAttempts:
- *           type: integer
- *           example: 3
- *         lastLoginAttempt:
+ *         role:
  *           type: string
- *           format: date-time
- *           example: "2024-07-14T12:34:56Z"
- *         createdAt:
- *           type: string
- *           format: date-time
- *           example: "2024-07-14T12:34:56Z"
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           example: "2024-07-14T12:34:56Z"
+ *           example: "BASIC"
  */
 
 /**

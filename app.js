@@ -18,11 +18,13 @@ import damageRoutes from "./routes/v1/damages.js";
 // Import the hazards routes module
 import hazardRoutes from "./routes/v1/hazards.js";
 
-// Import the ResourcesAvailability routes module
-import resourceRoutes from "./routes/v1/ResourcesAvailability.js";
+// Import the Resources routes module
+import resourceRoutes from "./routes/v1/Resources.js";
 
 // Import the disaster routes module
 import disasterRouter from "./routes/v1/disasters.js";
+
+import userRouter from "./routes/v1/users.js";
 
 import logger from "./middleware/logger.js";
 
@@ -73,7 +75,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://group-project-25-1-the-anti-statics-api.onrender.com",
+        url: "https://group-project-25-1-the-anti-statics-api-4tz3.onrender.com",
       },
     ],
   },
@@ -101,10 +103,12 @@ app.use("/api/v1/damages", damageRoutes);
 app.use("/api/v1/hazards", hazardRoutes);
 
 // Use the resources route
-app.use("/api/v1/ResourcesAvailability", resourceRoutes);
+app.use("/api/v1/resources", resourceRoutes);
 
 // Use the disasters route
 app.use("/api/v1/disasters", disasterRouter);
+
+app.use("/api/v1/users", userRouter);
 
 // Use the teams route
 app.use("/api/v1/teams", teamRouter);

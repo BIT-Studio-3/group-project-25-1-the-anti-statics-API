@@ -3,14 +3,37 @@
  * @author Samuel Batchelor
  */
 
+import prisma from "../../prisma/client.js";
 import Repository from "../../repositories/generic.js";
+
+const selectObject = {
+  id: true,
+  disasterId: true,
+  createdAt: true,
+  updatedAt: true,
+  disaster: {
+    select: {
+      title: true
+    }
+  }
+}
 
 const teamRepository = new Repository("ResponseTeam");
 
 const createTeam = async (req, res) => {
   try {
+    const { disasterId } = req.body
+    // Find if a disaster already has one team
+    const existingDisaster = await prisma.responseTeam.findFirst({
+      where: { disasterId },
+    });
+
+    if (existingDisaster) {
+      return res.status(409).json({ message: `There is already a team for this disaster` });
+    }
+
     await teamRepository.create(req.body);
-    const newTeams = await teamRepository.findAll();
+    const newTeams = await teamRepository.findAll(selectObject);
     return res.status(201).json({
       message: "Team successfully created",
       data: newTeams,
@@ -24,7 +47,15 @@ const createTeam = async (req, res) => {
 
 const getTeams = async (req, res) => {
   try {
-    const teams = await teamRepository.findAll();
+    const filters = {
+      disasterId: req.query.disasterId || undefined,
+      disaster: req.query.disaster || undefined
+    }
+
+    const sortBy = req.query.sortBy || "id";
+    const sortOrder = req.query.sortOrder === "desc" ? "desc" : "asc";
+
+    const teams = await teamRepository.findAll(selectObject, filters, sortBy, sortOrder);
     if (!teams || teams.length === 0) {
       return res.status(404).json({ message: "No teams found" });
     }
