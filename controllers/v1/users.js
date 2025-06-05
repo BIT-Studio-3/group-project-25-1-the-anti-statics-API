@@ -35,6 +35,9 @@ const createUser = async (req, res) => {
 const getUsers = async (req, res) => {
     try {
         const filters = {
+            firstName: req.query.firstName || undefined,
+            lastName: req.query.lastName || undefined,
+            organization: req.query.organization || undefined,
             role: req.query.role || undefined,
             status: req.query.status || undefined
         }
