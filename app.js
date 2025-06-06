@@ -75,7 +75,9 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://group-project-25-1-the-anti-statics-api-4tz3.onrender.com",
+        url: process.env.APP_ENV === "production"
+          ? "https://group-project-25-1-the-anti-statics-api.onrender.com"
+          : "http://localhost:3000",
       },
     ],
   },
