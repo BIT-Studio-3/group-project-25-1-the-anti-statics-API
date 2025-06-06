@@ -13,6 +13,8 @@ const selectObject = {
   alertLevel: true,
   region: true,
   description: true,
+  createdAt: true,      
+  updatedAt: true     
 }
 
 const createAlert = async (req, res) => {
